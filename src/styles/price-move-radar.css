@@ -1,0 +1,51 @@
+/* Price Move Radar Category Colors */
+:root {
+  --category-insider: 220 65% 55%;          /* Blue */
+  --category-institutional: 262 83% 58%;    /* Purple */
+  --category-analyst: 142 76% 36%;          /* Green */
+  --category-regulatory: 25 95% 53%;        /* Orange */
+  --category-news-pr: 204 100% 40%;         /* Light Blue */
+  --category-media-appearance: 340 82% 52%; /* Pink */
+  --category-competitor: 12 76% 61%;        /* Red-Orange */
+  --category-customer: 79 81% 56%;          /* Lime */
+  --category-short-interest: 0 84% 60%;     /* Red */
+  --category-etf: 280 100% 70%;             /* Magenta */
+  
+  /* Impact Colors */
+  --impact-high: 0 84% 60%;    /* Red */
+  --impact-medium: 25 95% 53%; /* Orange */
+  --impact-low: 142 76% 36%;   /* Green */
+  
+  /* Confidence Colors */
+  --confidence-high: 142 76% 36%;    /* Green */
+  --confidence-medium: 25 95% 53%;   /* Orange */
+  --confidence-low: 0 84% 60%;       /* Red */
+}
+
+/* Impact Classes */
+.text-impact-high {
+  color: hsl(var(--impact-high));
+}
+
+.text-impact-medium {
+  color: hsl(var(--impact-medium));
+}
+
+.text-impact-low {
+  color: hsl(var(--impact-low));
+}
+
+/* Line clamp utilities */
+.line-clamp-1 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+}
+
+.line-clamp-2 {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}

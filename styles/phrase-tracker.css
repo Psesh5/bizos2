@@ -1,0 +1,615 @@
+/* EXACT LOVABLE DESIGN SYSTEM COPY */
+/* Base Variables from lovable-reference/src/index.css */
+
+:root {
+    --background: 248 250% 99%;
+    --foreground: 222 47% 11%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --primary-glow: 0 0% 20%;
+
+    --secondary: 248 50% 97%;
+    --secondary-foreground: 0 0% 9%;
+
+    --muted: 248 50% 97%;
+    --muted-foreground: 0 0% 45%;
+
+    --accent: 0 0% 15%;
+    --accent-foreground: 0 0% 98%;
+
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
+
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 0 0% 9%;
+
+    /* Financial Dashboard Specific */
+    --financial-bg: 248 252% 99%;
+    --financial-surface: 0 0% 100%;
+    --financial-surface-hover: 248 50% 98%;
+    --financial-text-primary: 0 0% 9%;
+    --financial-text-secondary: 0 0% 45%;
+    --financial-border: 220 13% 91%;
+    --financial-accent: 0 0% 15%;
+    
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(0 0% 9%), hsl(0 0% 15%));
+    --gradient-surface: linear-gradient(180deg, hsl(0 0% 100%), hsl(248 50% 98%));
+    --gradient-subtle: linear-gradient(180deg, hsl(248 252% 99%), hsl(248 50% 97%));
+    
+    /* Shadows */
+    --shadow-soft: 0 1px 3px 0 hsl(0 0% 0% / 0.1), 0 1px 2px 0 hsl(0 0% 0% / 0.06);
+    --shadow-medium: 0 4px 6px -1px hsl(0 0% 0% / 0.1), 0 2px 4px -1px hsl(0 0% 0% / 0.06);
+    --shadow-large: 0 10px 15px -3px hsl(0 0% 0% / 0.1), 0 4px 6px -2px hsl(0 0% 0% / 0.05);
+    --shadow-glow: 0 0 0 1px hsl(0 0% 9% / 0.05), 0 0 20px hsl(0 0% 9% / 0.1);
+
+    --radius: 0.5rem;
+}
+
+/* MODAL OVERLAY */
+.phrase-tracker-modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+}
+
+.phrase-tracker-modal-content {
+    background: hsl(var(--financial-bg));
+    border-radius: 12px;
+    box-shadow: var(--shadow-large);
+    width: 100%;
+    max-width: 1200px;
+    max-height: 90vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+/* EXACT LOVABLE STRUCTURE */
+
+/* min-h-screen bg-financial-bg */
+.min-h-screen {
+    min-height: 100vh;
+}
+
+.bg-financial-bg {
+    background-color: hsl(var(--financial-bg));
+}
+
+/* Header: bg-gradient-surface border-b border-financial-border shadow-soft */
+.bg-gradient-surface {
+    background: var(--gradient-surface);
+}
+
+.border-b {
+    border-bottom-width: 1px;
+}
+
+.border-financial-border {
+    border-color: hsl(var(--financial-border));
+}
+
+.shadow-soft {
+    box-shadow: var(--shadow-soft);
+}
+
+/* max-w-7xl mx-auto px-6 py-8 */
+.max-w-7xl {
+    max-width: 80rem; /* 1280px */
+}
+
+.mx-auto {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.px-6 {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.py-8 {
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+}
+
+/* flex items-center gap-3 mb-2 */
+.flex {
+    display: flex;
+}
+
+.items-center {
+    align-items: center;
+}
+
+.gap-3 {
+    gap: 0.75rem;
+}
+
+.mb-2 {
+    margin-bottom: 0.5rem;
+}
+
+/* p-2 bg-gradient-primary rounded-lg */
+.p-2 {
+    padding: 0.5rem;
+}
+
+.bg-gradient-primary {
+    background: var(--gradient-primary);
+}
+
+.rounded-lg {
+    border-radius: 0.5rem;
+}
+
+/* w-6 h-6 text-white */
+.w-6 {
+    width: 1.5rem;
+}
+
+.h-6 {
+    height: 1.5rem;
+}
+
+.text-white {
+    color: white;
+}
+
+/* text-3xl font-bold text-financial-text-primary */
+.text-3xl {
+    font-size: 1.875rem;
+    line-height: 2.25rem;
+}
+
+.font-bold {
+    font-weight: 700;
+}
+
+.text-financial-text-primary {
+    color: hsl(var(--financial-text-primary));
+}
+
+/* text-financial-text-secondary */
+.text-financial-text-secondary {
+    color: hsl(var(--financial-text-secondary));
+}
+
+/* SEARCH FILTERS STYLES */
+
+/* p-6 bg-gradient-surface border-financial-border shadow-soft */
+.search-filters {
+    padding: 1.5rem;
+    background: var(--gradient-surface);
+    border-width: 1px;
+    border-color: hsl(var(--financial-border));
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius);
+}
+
+/* space-y-4 */
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+/* flex flex-col lg:flex-row gap-4 */
+.flex-col {
+    flex-direction: column;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+@media (min-width: 1024px) {
+    .lg\\:flex-row {
+        flex-direction: row;
+    }
+}
+
+/* flex-1 */
+.flex-1 {
+    flex: 1;
+}
+
+/* relative */
+.relative {
+    position: relative;
+}
+
+/* absolute left-3 top-3 h-4 w-4 text-financial-text-secondary */
+.absolute {
+    position: absolute;
+}
+
+.left-3 {
+    left: 0.75rem;
+}
+
+.top-3 {
+    top: 0.75rem;
+}
+
+.h-4 {
+    height: 1rem;
+}
+
+.w-4 {
+    width: 1rem;
+}
+
+/* pl-10 bg-financial-surface border-financial-border focus:ring-financial-accent */
+.input-with-icon {
+    padding-left: 2.5rem;
+    background-color: hsl(var(--financial-surface));
+    border-width: 1px;
+    border-color: hsl(var(--financial-border));
+    border-radius: var(--radius);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+}
+
+.input-with-icon:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: hsl(var(--financial-accent));
+    box-shadow: 0 0 0 2px hsl(var(--financial-accent) / 0.2);
+}
+
+/* bg-gradient-primary hover:opacity-90 text-white shadow-soft px-8 */
+.btn-primary {
+    background: var(--gradient-primary);
+    color: white;
+    box-shadow: var(--shadow-soft);
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: var(--radius);
+    font-size: 0.875rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    white-space: nowrap;
+    transition: opacity 150ms ease;
+}
+
+.btn-primary:hover {
+    opacity: 0.9;
+}
+
+/* w-4 h-4 mr-2 */
+.mr-2 {
+    margin-right: 0.5rem;
+}
+
+/* AI Query textarea styles */
+.ai-textarea {
+    padding-left: 2.5rem;
+    background-color: hsl(var(--financial-surface));
+    border-width: 1px;
+    border-color: hsl(var(--financial-border));
+    border-radius: var(--radius);
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    padding-right: 0.75rem;
+    font-size: 0.875rem;
+    width: 100%;
+    min-height: 5rem;
+    resize: none;
+}
+
+.ai-textarea:focus {
+    outline: 2px solid transparent;
+    outline-offset: 2px;
+    border-color: hsl(var(--financial-accent));
+    box-shadow: 0 0 0 2px hsl(var(--financial-accent) / 0.2);
+}
+
+/* STATS OVERVIEW STYLES */
+
+/* mt-8 */
+.mt-8 {
+    margin-top: 2rem;
+}
+
+/* grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6 */
+.grid {
+    display: grid;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, 1fr);
+}
+
+@media (min-width: 768px) {
+    .md\\:grid-cols-2 {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (min-width: 1024px) {
+    .lg\\:grid-cols-4 {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+.mb-6 {
+    margin-bottom: 1.5rem;
+}
+
+/* p-4 bg-gradient-surface border-financial-border shadow-soft hover:shadow-medium transition-all duration-200 animate-slide-up */
+.stat-card {
+    padding: 1rem;
+    background: var(--gradient-surface);
+    border-width: 1px;
+    border-color: hsl(var(--financial-border));
+    box-shadow: var(--shadow-soft);
+    border-radius: var(--radius);
+    transition: all 200ms ease;
+}
+
+.stat-card:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+/* p-2 rounded-lg bg-financial-surface */
+.stat-icon-container {
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+    background-color: hsl(var(--financial-surface));
+}
+
+/* w-5 h-5 */
+.w-5 {
+    width: 1.25rem;
+}
+
+.h-5 {
+    height: 1.25rem;
+}
+
+/* Color classes */
+.text-financial-accent {
+    color: hsl(var(--financial-accent));
+}
+
+.text-primary {
+    color: hsl(var(--primary));
+}
+
+.text-accent {
+    color: hsl(var(--accent));
+}
+
+.text-success {
+    color: hsl(var(--success));
+}
+
+/* text-sm text-financial-text-secondary */
+.text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+}
+
+/* text-xl font-semibold text-financial-text-primary */
+.text-xl {
+    font-size: 1.25rem;
+    line-height: 1.75rem;
+}
+
+.font-semibold {
+    font-weight: 600;
+}
+
+/* RESULT CARD STYLES */
+
+/* gap-2 mb-6 */
+.gap-2 {
+    gap: 0.5rem;
+}
+
+/* space-y-4 */
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
+/* p-6 bg-gradient-surface border-financial-border shadow-soft hover:shadow-medium transition-all duration-200 animate-fade-in */
+.result-card {
+    padding: 1.5rem;
+    background: var(--gradient-surface);
+    border-width: 1px;
+    border-color: hsl(var(--financial-border));
+    box-shadow: var(--shadow-soft);
+    border-radius: 0.75rem;
+    transition: all 200ms ease;
+}
+
+.result-card:hover {
+    box-shadow: var(--shadow-medium);
+}
+
+/* flex items-start justify-between mb-4 */
+.items-start {
+    align-items: flex-start;
+}
+
+.justify-between {
+    justify-content: space-between;
+}
+
+.mb-4 {
+    margin-bottom: 1rem;
+}
+
+/* font-semibold text-lg text-financial-text-primary */
+.text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+}
+
+/* text-xs border-financial-border */
+.text-xs {
+    font-size: 0.75rem;
+    line-height: 1rem;
+}
+
+/* Badge styles */
+.badge {
+    padding: 0.25rem 0.5rem;
+    border-radius: 1rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-width: 1px;
+}
+
+.badge-outline {
+    background: transparent;
+    border-color: hsl(var(--financial-border));
+}
+
+.badge-success {
+    background-color: hsl(var(--success));
+    color: hsl(var(--success-foreground));
+    border: none;
+}
+
+.badge-destructive {
+    background-color: hsl(var(--destructive));
+    color: hsl(var(--destructive-foreground));
+    border: none;
+}
+
+.badge-secondary {
+    background-color: hsl(var(--secondary));
+    color: hsl(var(--secondary-foreground));
+    border: none;
+}
+
+/* h-8 w-8 p-0 */
+.h-8 {
+    height: 2rem;
+}
+
+.w-8 {
+    width: 2rem;
+}
+
+.p-0 {
+    padding: 0;
+}
+
+/* Button styles */
+.btn-ghost {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 0.25rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* text-sm font-medium text-financial-text-primary mb-2 */
+.font-medium {
+    font-weight: 500;
+}
+
+/* text-sm text-financial-text-secondary leading-relaxed bg-financial-surface p-3 rounded-md border border-financial-border */
+.leading-relaxed {
+    line-height: 1.625;
+}
+
+.bg-financial-surface {
+    background-color: hsl(var(--financial-surface));
+}
+
+.p-3 {
+    padding: 0.75rem;
+}
+
+.rounded-md {
+    border-radius: 0.375rem;
+}
+
+.border {
+    border-width: 1px;
+}
+
+/* bg-primary/20 text-financial-text-primary px-1 rounded */
+.highlight {
+    background-color: hsl(var(--primary) / 0.2);
+    color: hsl(var(--financial-text-primary));
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    border-radius: 0.25rem;
+}
+
+.px-1 {
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+}
+
+.rounded {
+    border-radius: 0.25rem;
+}
+
+/* Additional utility classes for main widget */
+.grid-cols-3 {
+    grid-template-columns: repeat(3, 1fr);
+}
+
+.text-center {
+    text-align: center;
+}
+
+/* Close button for modal */
+.close-modal-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: hsl(var(--background));
+    border: 1px solid hsl(var(--border));
+    border-radius: 50%;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    color: hsl(var(--muted-foreground));
+    transition: all 150ms ease;
+}
+
+.close-modal-btn:hover {
+    background: hsl(var(--muted));
+    color: hsl(var(--foreground));
+}

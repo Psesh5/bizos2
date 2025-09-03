@@ -1,0 +1,143 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Professional Financial Dashboard Design System */
+
+@layer base {
+  :root {
+    /* Core Financial Dashboard Colors */
+    --background: 210 11% 6%;
+    --foreground: 210 20% 98%;
+    --surface: 210 11% 8%;
+    --surface-elevated: 210 11% 12%;
+    
+    /* Professional Finance Brand */
+    --primary: 220 91% 56%;
+    --primary-glow: 220 91% 66%;
+    --primary-muted: 220 91% 46%;
+    
+    /* Financial Data Categories */
+    --category-insider: 42 96% 59%;
+    --category-institutional: 271 91% 65%;
+    --category-analyst: 173 80% 44%;
+    --category-regulatory: 0 91% 71%;
+    --category-media: 25 95% 53%;
+    --category-competitor: 262 83% 58%;
+    --category-customer: 142 76% 36%;
+    --category-influencer: 291 64% 42%;
+    --category-short: 348 83% 47%;
+    --category-etf: 200 98% 39%;
+    
+    /* Impact & Confidence */
+    --impact-high: 0 84% 60%;
+    --impact-medium: 38 92% 50%;
+    --impact-low: 142 71% 45%;
+    --confidence-high: 142 76% 36%;
+    --confidence-medium: 38 92% 50%;
+    --confidence-low: 0 84% 60%;
+    
+    /* Professional Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(var(--primary)), hsl(var(--primary-glow)));
+    --gradient-surface: linear-gradient(180deg, hsl(var(--surface)), hsl(var(--surface-elevated)));
+    --gradient-data: linear-gradient(90deg, hsl(var(--surface)) 0%, hsl(var(--surface-elevated)) 100%);
+    
+    /* Financial Dashboard Effects */
+    --shadow-data: 0 4px 20px -2px hsl(var(--primary) / 0.1);
+    --shadow-elevated: 0 8px 30px -4px hsl(0 0% 0% / 0.3);
+    --shadow-glow: 0 0 30px hsl(var(--primary-glow) / 0.2);
+    
+    /* Animation & Transitions */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-data: all 0.2s ease-out;
+
+    /* Shadcn Integration */
+    --card: var(--surface-elevated);
+    --card-foreground: var(--foreground);
+    
+    --popover: var(--surface-elevated);
+    --popover-foreground: var(--foreground);
+    
+    --secondary: var(--surface-elevated);
+    --secondary-foreground: var(--foreground);
+    
+    --muted: var(--surface);
+    --muted-foreground: 210 20% 65%;
+    
+    --accent: var(--primary);
+    --accent-foreground: var(--foreground);
+    
+    --destructive: var(--impact-high);
+    --destructive-foreground: var(--foreground);
+    
+    --border: 210 11% 20%;
+    --input: 210 11% 16%;
+    --ring: var(--primary);
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 224.3 76.3% 48%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}

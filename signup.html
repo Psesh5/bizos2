@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - BusinessOS</title>
+    <link rel="stylesheet" href="styles/signup.css">
+</head>
+<body>
+    <div class="signup-container">
+        <!-- Dark mode toggle -->
+        <div class="dark-mode-toggle">
+            <button class="theme-toggle" id="themeToggle" onclick="toggleDarkMode()" title="Toggle dark mode">
+                <span class="theme-icon">🌙</span>
+            </button>
+        </div>
+        
+        <!-- Progress indicator -->
+        <div class="progress-bar">
+            <div class="progress-step active" data-step="1">
+                <div class="step-number">1</div>
+                <div class="step-label">Your Details</div>
+            </div>
+            <div class="progress-step" data-step="2">
+                <div class="step-number">2</div>
+                <div class="step-label">Choose Packs</div>
+            </div>
+            <div class="progress-step" data-step="3">
+                <div class="step-number">3</div>
+                <div class="step-label">Dashboard</div>
+            </div>
+        </div>
+
+        <!-- Step 1: Your Details -->
+        <div class="signup-step active" id="step1">
+            <div class="step-header">
+                <h1>Your Details</h1>
+                <p>We'll tailor BusinessOS to your profile.</p>
+            </div>
+
+            <form class="signup-form" id="detailsForm">
+                <div class="form-group">
+                    <label for="fullName">Full name</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Jane Doe" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="jane@company.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <div class="company-search-container">
+                        <input type="text" id="companySearch" name="companySearch" placeholder="Search for your company (e.g., Apple, Tesla, Microsoft)" required autocomplete="off">
+                        <input type="hidden" id="selectedCompany" name="selectedCompany" required>
+                        <input type="hidden" id="companyTicker" name="companyTicker">
+                        <div class="company-dropdown" id="companyDropdown">
+                            <!-- Search results will appear here -->
+                        </div>
+                    </div>
+                    <div class="selected-company-display" id="selectedCompanyDisplay" style="display: none;">
+                        <div class="selected-company-info">
+                            <div class="selected-company-logo">
+                                <img id="selectedCompanyLogo" src="" alt="" style="display: none;">
+                                <div id="selectedCompanyPlaceholder" class="company-placeholder"></div>
+                            </div>
+                            <div class="selected-company-details">
+                                <div class="selected-company-name" id="selectedCompanyName"></div>
+                                <div class="selected-company-meta">
+                                    <span id="selectedCompanyTicker"></span>
+                                    <span id="selectedCompanyExchange"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <button type="button" class="change-company-btn" onclick="clearCompanySelection()">Change</button>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="role">Role (select)</label>
+                    <select id="role" name="role" required>
+                        <option value="">Choose a role</option>
+                        <option value="ceo">CEO / Founder</option>
+                        <option value="cfo">CFO / Finance</option>
+                        <option value="cto">CTO / Engineering</option>
+                        <option value="cmo">CMO / Marketing</option>
+                        <option value="coo">COO / Operations</option>
+                        <option value="hr">HR / People</option>
+                        <option value="analyst">Analyst</option>
+                        <option value="manager">Manager</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="form-group" id="customRoleGroup" style="display: none;">
+                    <label for="customRole">Or type your role</label>
+                    <input type="text" id="customRole" name="customRole" placeholder="e.g. VP of Communications">
+                </div>
+
+                <button type="submit" class="btn-continue">Continue</button>
+            </form>
+        </div>
+
+        <!-- Step 2: Choose Packs -->
+        <div class="signup-step" id="step2">
+            <div class="step-header">
+                <h1>Choose Your Packs</h1>
+                <p>Select the capabilities you need for your role.</p>
+            </div>
+
+            <!-- Premium Packs -->
+            <div class="pack-tier premium-tier">
+                <div class="tier-header">
+                    <h2>⭐ Premium Intelligence</h2>
+                    <p>Advanced competitive monitoring and intelligence</p>
+                </div>
+                <div class="premium-pack-card" data-pack="competitive-intelligence">
+                    <input type="checkbox" id="competitive-pack" name="packs" value="competitive-intelligence">
+                    <label for="competitive-pack" class="premium-pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">🕵️</div>
+                            <h3>Competitive Intelligence Pack</h3>
+                            <span class="premium-badge">Premium</span>
+                        </div>
+                        <p>Monitor competitor earnings calls, track key phrases, and get alerts when peers mention strategic topics.</p>
+                        <div class="premium-features">
+                            <div class="feature">✅ Custom peer selection</div>
+                            <div class="feature">✅ Real-time phrase monitoring</div>
+                            <div class="feature">✅ Sector trend analysis</div>
+                            <div class="feature">✅ Competitive intelligence reports</div>
+                        </div>
+                        <div class="premium-setup" style="display: none;">
+                            <h4>Customize Your Intelligence</h4>
+                            <div class="setup-section">
+                                <label>Select competitors to monitor:</label>
+                                <input type="text" class="peer-input" placeholder="Enter ticker symbols (e.g. AAPL, MSFT, GOOGL)" />
+                            </div>
+                            <div class="setup-section">
+                                <label>Sectors to track:</label>
+                                <select class="sector-select" multiple>
+                                    <option value="technology">Technology</option>
+                                    <option value="healthcare">Healthcare</option>
+                                    <option value="finance">Financial Services</option>
+                                    <option value="energy">Energy</option>
+                                    <option value="consumer">Consumer</option>
+                                    <option value="industrial">Industrial</option>
+                                </select>
+                            </div>
+                            <div class="setup-section">
+                                <label>Key phrases to monitor:</label>
+                                <input type="text" class="phrases-input" placeholder="e.g. artificial intelligence, supply chain, guidance" />
+                            </div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Core Packs -->
+            <div class="pack-tier">
+                <div class="tier-header">
+                    <h2>🎯 Core Packs</h2>
+                    <p>Essential tools for every business function</p>
+                </div>
+                <div class="packs-grid basic-packs">
+                <div class="pack-card" data-pack="investor-relations">
+                    <input type="checkbox" id="ir-pack" name="packs" value="investor-relations">
+                    <label for="ir-pack" class="pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">📊</div>
+                            <h3>Investor Relations (IR) Pack</h3>
+                        </div>
+                        <p>Briefings, shareholder updates, and KPI dashboards.</p>
+                    </label>
+                </div>
+
+                <div class="pack-card" data-pack="media-comms">
+                    <input type="checkbox" id="media-pack" name="packs" value="media-comms">
+                    <label for="media-pack" class="pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">📺</div>
+                            <h3>Media & Comms Pack</h3>
+                        </div>
+                        <p>Press kits, newsroom, and multi-channel comms.</p>
+                    </label>
+                </div>
+
+                <div class="pack-card" data-pack="growth-marketing">
+                    <input type="checkbox" id="growth-pack" name="packs" value="growth-marketing">
+                    <label for="growth-pack" class="pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">🚀</div>
+                            <h3>Growth & Marketing Pack</h3>
+                        </div>
+                        <p>Campaign planner, attribution, and content ops.</p>
+                    </label>
+                </div>
+
+                <div class="pack-card" data-pack="data-insights">
+                    <input type="checkbox" id="data-pack" name="packs" value="data-insights">
+                    <label for="data-pack" class="pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">📈</div>
+                            <h3>Data & Insights Pack</h3>
+                        </div>
+                        <p>Metrics hub, auto-digests, and anomaly alerts.</p>
+                    </label>
+                </div>
+
+                <div class="pack-card" data-pack="finance-fpa">
+                    <input type="checkbox" id="finance-pack" name="packs" value="finance-fpa">
+                    <label for="finance-pack" class="pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">💰</div>
+                            <h3>Finance & FP&A Pack</h3>
+                        </div>
+                        <p>Budget trackers, runway views, and board reports.</p>
+                    </label>
+                </div>
+
+                <div class="pack-card" data-pack="people-ops">
+                    <input type="checkbox" id="people-pack" name="packs" value="people-ops">
+                    <label for="people-pack" class="pack-label">
+                        <div class="pack-header">
+                            <div class="pack-icon">👥</div>
+                            <h3>People Ops Pack</h3>
+                        </div>
+                        <p>Org charts, performance cycles, and onboarding.</p>
+                    </label>
+                </div>
+
+                </div>
+            </div>
+
+            <div class="step-actions">
+                <button type="button" class="btn-back" onclick="goToStep(1)">Back</button>
+                <button type="button" class="btn-continue" onclick="goToStep(3)">Continue</button>
+            </div>
+        </div>
+
+        <!-- Step 3: Welcome/Loading -->
+        <div class="signup-step" id="step3">
+            <div class="welcome-content">
+                <div class="success-icon">✨</div>
+                <h1>Welcome to BusinessOS!</h1>
+                <p>Setting up your personalized dashboard...</p>
+                
+                <div class="setup-progress">
+                    <div class="setup-item">
+                        <div class="setup-check">✓</div>
+                        <span>Creating your workspace</span>
+                    </div>
+                    <div class="setup-item">
+                        <div class="setup-check loading">⏳</div>
+                        <span>Configuring selected packs</span>
+                    </div>
+                    <div class="setup-item">
+                        <div class="setup-check">○</div>
+                        <span>Preparing dashboard</span>
+                    </div>
+                </div>
+                
+                <button class="btn-continue" id="enterDashboard" onclick="enterDashboard()" style="display: none;">
+                    Enter Dashboard
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="api-service.js"></script>
+    <script src="signup.js"></script>
+</body>
+</html>

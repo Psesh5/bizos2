@@ -1,0 +1,945 @@
+/* BusinessOS Dashboard - World Class Design */
+
+/* Import better fonts */
+@import url('https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* Font fallbacks for SF Pro Display */
+@supports not (font-family: 'SF Pro Display') {
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+}
+
+/* Reset and base styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'SF Pro Display', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    line-height: 1.5;
+    color: var(--text-primary);
+    background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+    overflow-x: hidden;
+    overflow-y: auto;
+}
+
+/* Update font variable */
+:root {
+    --font-sans: 'Inter', 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    
+    /* Modern HSL Design System - Clean White & Black Theme */
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+
+    --primary: 222.2 84% 4.9%;
+    --primary-foreground: 210 40% 98%;
+    --primary-dark: 222.2 84% 4.9%;
+
+    --secondary: 230 15% 95%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+
+    --muted: 220 14% 96%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+
+    --accent: 220 14% 96%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 220 16% 90%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 222.2 84% 4.9%;
+
+    --radius: 0.75rem;
+    
+    /* Legacy support - Clean Black & White */
+    --primary-color: hsl(222.2, 84%, 4.9%);
+    --primary-rgb: 12, 16, 23;
+    --success-color: hsl(142 76% 36%);
+    --warning-color: hsl(45 93% 47%);
+    --error-color: hsl(0 84.2% 60.2%);
+    --error-rgb: 220, 38, 38;
+    
+    --background-color: hsl(0, 0%, 100%);
+    --background-secondary: hsl(220, 14%, 96%);
+    --background-tertiary: hsl(230, 15%, 95%);
+    
+    --text-primary: hsl(222.2, 84%, 4.9%);
+    --text-secondary: hsl(215.4, 16.3%, 46.9%);
+    --text-tertiary: hsl(215, 20.2%, 65.1%);
+    --text-inverse: hsl(210, 40%, 98%);
+    
+    --border-color: hsl(220, 16%, 90%);
+    --border-light: hsl(220, 14%, 96%);
+    --border-dark: hsl(220, 13%, 91%);
+    
+    --widget-bg: hsl(0, 0%, 100%);
+    --widget-border: hsl(220, 16%, 90%);
+    --widget-header-bg: hsl(220, 14%, 96%);
+    --widget-shadow: 0 10px 30px -10px hsl(0 0% 0% / 0.15);
+    
+    --dashboard-bg: hsl(0, 0%, 100%);
+    --sidebar-bg: hsl(0, 0%, 100%);
+    --header-bg: hsl(0, 0%, 100%);
+    --header-gradient: hsl(0, 0%, 100%);
+    
+    /* Spacing */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    
+    /* Z-index */
+    --z-sticky: 1000;
+    --z-modal: 2000;
+    
+    /* Border radius */
+    --radius-sm: 0.25rem;
+    --radius-md: 0.5rem;
+    --radius-lg: 0.75rem;
+    --radius-xl: 1rem;
+}
+
+/* App Container */
+.app-container {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.header {
+    background: hsl(220, 30%, 8%);
+    color: hsl(210, 40%, 98%);
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    border-bottom: 1px solid hsl(220, 13%, 15%);
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.5rem;
+    max-width: 80rem;
+    margin: 0 auto;
+    width: 100%;
+}
+
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* BusinessOS Logo Design */
+
+.app-logo {
+    width: 40px;
+    height: 40px;
+    background: rgba(255, 255, 255, 0.15);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: var(--radius-lg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    backdrop-filter: blur(10px);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.app-logo::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+    border-radius: var(--radius-lg);
+    pointer-events: none;
+}
+
+.app-logo::after {
+    content: '';
+    width: 24px;
+    height: 24px;
+    background: linear-gradient(135deg, #ffffff 0%, #f1f5f9 100%);
+    border-radius: 4px;
+    position: relative;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Company Branding */
+.company-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    background: #ffffff;
+    backdrop-filter: blur(20px);
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-xl);
+    border: 1px solid #e0e0e0;
+    box-shadow: 
+        0 4px 20px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.company-brand::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+    pointer-events: none;
+}
+
+.company-logo-container {
+    width: 48px;
+    height: 48px;
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.95);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.company-logo-img {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+}
+
+.company-logo-placeholder {
+    font-size: 16px;
+    font-weight: 700;
+    color: #000000;
+    text-transform: uppercase;
+    letter-spacing: -0.01em;
+}
+
+.company-info {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+    position: relative;
+    z-index: 1;
+}
+
+.company-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #000000;
+    line-height: 1.2;
+    text-shadow: none;
+    max-width: 280px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.company-ticker {
+    font-size: 14px;
+    font-weight: 500;
+    color: #666666;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.company-metrics {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: var(--space-2);
+    position: relative;
+    z-index: 1;
+}
+
+.price-display {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+}
+
+.current-price {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+    font-variant-numeric: tabular-nums;
+}
+
+.price-change {
+    font-size: 14px;
+    font-weight: 600;
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-variant-numeric: tabular-nums;
+    display: flex;
+    align-items: center;
+    gap: var(--space-1);
+    backdrop-filter: blur(10px);
+}
+
+.price-change.positive {
+    background: rgba(16, 185, 129, 0.2);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+    color: #34d399;
+}
+
+.price-change.negative {
+    background: rgba(239, 68, 68, 0.2);
+    border: 1px solid rgba(239, 68, 68, 0.3);
+    color: #fca5a5;
+}
+
+/* Header Controls - styles moved to main definition above */
+
+.widget-library-btn,
+.company-select-btn {
+    background: hsl(220, 9%, 46%);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 0.375rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.widget-library-btn:hover,
+.company-select-btn:hover {
+    background: hsl(220, 9%, 40%);
+}
+
+.btn-icon {
+    width: 1rem;
+    height: 1rem;
+}
+
+.widget-library-btn.active {
+    background: hsl(220, 9%, 30%);
+}
+
+
+.logo-section {
+    flex-shrink: 0;
+}
+
+.logo-section h1 {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: white;
+}
+
+.company-branding {
+    display: flex;
+    justify-content: center;
+    flex: 1;
+}
+
+/* Get Started Button */
+.get-started-btn {
+    background: hsl(222.2, 47.4%, 11.2%);
+    color: hsl(210, 40%, 98%);
+    border: none;
+    padding: 0.75rem 2rem;
+    border-radius: 0.5rem;
+    font-size: 1.125rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.get-started-btn:hover {
+    background: hsl(222.2, 47.4%, 8%);
+}
+
+/* Company Card (when company is selected) */
+.company-card {
+    background: white;
+    color: hsl(222.2, 84%, 4.9%);
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.5rem;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    border: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.company-logo-container {
+    width: 2.5rem;
+    height: 2.5rem;
+    background: hsl(210, 40%, 96%);
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.company-logo-circle {
+    width: 1.5rem;
+    height: 1.5rem;
+    background: #ef4444;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.company-logo-dot {
+    width: 0.75rem;
+    height: 0.75rem;
+    background: white;
+    border-radius: 50%;
+}
+
+.company-info {
+    text-align: left;
+}
+
+.company-name {
+    font-size: 1.125rem;
+    font-weight: 600;
+    color: hsl(222.2, 84%, 4.9%);
+    line-height: 1.2;
+}
+
+.company-ticker {
+    font-size: 0.875rem;
+    color: hsl(215.4, 16.3%, 46.9%);
+}
+
+.company-metrics {
+    text-align: right;
+}
+
+.current-price {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: hsl(222.2, 84%, 4.9%);
+}
+
+.price-change {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: hsl(142, 76%, 36%);
+}
+
+.header-controls {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
+/* Remove emoji icons - clean text-only design */
+
+/* Dashboard */
+.dashboard {
+    flex: 1;
+    position: relative;
+    overflow: auto;
+    min-height: calc(100vh - 80px);
+    padding-bottom: 200px; /* Add significant bottom padding for scrolling past widgets */
+}
+
+.dashboard-grid {
+    position: relative;
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    padding: var(--space-6);
+    padding-bottom: 400px; /* Extra space at bottom for scrolling */
+}
+
+/* Welcome Placeholder */
+.welcome-placeholder {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    transition: all 0.3s ease;
+}
+
+.welcome-content {
+    text-align: center;
+    max-width: 480px;
+    padding: var(--space-8);
+}
+
+.welcome-icon {
+    font-size: 64px;
+    margin-bottom: var(--space-6);
+    opacity: 0.8;
+}
+
+.welcome-content h2 {
+    font-size: 32px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.025em;
+}
+
+.welcome-content p {
+    font-size: 16px;
+    color: var(--text-secondary);
+    margin-bottom: var(--space-8);
+    line-height: 1.6;
+}
+
+.start-btn {
+    background: var(--primary-gradient);
+    color: white;
+    border: none;
+    padding: var(--space-4) var(--space-8);
+    border-radius: var(--radius-lg);
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
+.start-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.4);
+}
+
+/* Widget Library Sidebar */
+.widget-library {
+    position: fixed;
+    top: 0;
+    left: -400px;
+    width: 400px;
+    height: 100vh;
+    background: var(--surface-primary);
+    border-right: 1px solid var(--widget-border);
+    box-shadow: var(--shadow-xl);
+    z-index: var(--z-modal);
+    transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    display: flex;
+    flex-direction: column;
+}
+
+.widget-library.open {
+    left: 0;
+}
+
+.library-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--widget-border);
+    background: var(--surface-secondary);
+}
+
+.library-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.close-library {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.close-library:hover {
+    background: var(--hover-overlay);
+    color: var(--text-primary);
+}
+
+.library-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--space-6);
+}
+
+/* Widget Categories */
+.widget-category {
+    margin-bottom: var(--space-8);
+}
+
+.category-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-4);
+    padding-left: var(--space-2);
+}
+
+.category-widgets {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+/* Library Widget Items */
+.library-widget {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    background: var(--surface-secondary);
+    border: 1px solid transparent;
+    border-radius: var(--radius-lg);
+    cursor: grab;
+    transition: all 0.2s ease;
+}
+
+.library-widget:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-md);
+}
+
+.library-widget.dragging {
+    opacity: 0.6;
+    cursor: grabbing;
+}
+
+.library-widget-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-4);
+    flex: 1;
+}
+
+.widget-preview {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 48px;
+    height: 48px;
+    background: var(--card-gradient);
+    border-radius: var(--radius-md);
+    font-size: 24px;
+}
+
+.ai-badge {
+    position: absolute;
+    top: -4px;
+    right: -4px;
+    background: var(--accent-color);
+    color: white;
+    font-size: 10px;
+    font-weight: 600;
+    padding: 2px 6px;
+    border-radius: var(--radius-sm);
+    line-height: 1;
+}
+
+.widget-details {
+    flex: 1;
+}
+
+.widget-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.widget-description {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+}
+
+.add-widget-btn {
+    width: 36px;
+    height: 36px;
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.add-widget-btn:hover {
+    background: var(--primary-dark);
+    transform: scale(1.05);
+}
+
+/* Company Modal */
+.modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(4px);
+    z-index: var(--z-modal);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease;
+}
+
+.modal.show {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal-content {
+    background: var(--surface-primary);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--shadow-xl);
+    width: 90vw;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow: hidden;
+    transform: scale(0.9) translateY(20px);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.modal.show .modal-content {
+    transform: scale(1) translateY(0);
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-6);
+    border-bottom: 1px solid var(--widget-border);
+}
+
+.modal-header h3 {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+}
+
+.close-modal {
+    width: 36px;
+    height: 36px;
+    border: none;
+    background: transparent;
+    font-size: 20px;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: var(--radius-md);
+    transition: all 0.2s ease;
+}
+
+.close-modal:hover {
+    background: var(--hover-overlay);
+    color: var(--text-primary);
+}
+
+.modal-body {
+    padding: var(--space-6);
+}
+
+#companySearch {
+    width: 100%;
+    padding: var(--space-4);
+    border: 1px solid var(--widget-border);
+    border-radius: var(--radius-md);
+    font-size: 16px;
+    background: var(--surface-secondary);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+#companySearch:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: var(--focus-ring);
+}
+
+/* Company Results */
+.company-results {
+    margin-top: var(--space-4);
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.company-result {
+    padding: var(--space-4);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    margin-bottom: var(--space-2);
+}
+
+.company-result:hover {
+    border-color: var(--primary-color);
+    background: var(--surface-secondary);
+}
+
+.company-result-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.company-result-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    margin-bottom: var(--space-1);
+}
+
+.company-result-details {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.ticker {
+    font-weight: 600;
+    color: var(--primary-color);
+}
+
+.select-company-btn {
+    background: var(--primary-color);
+    color: white;
+    border: none;
+    padding: var(--space-2) var(--space-4);
+    border-radius: var(--radius-md);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.select-company-btn:hover {
+    background: var(--primary-dark);
+}
+
+/* Toast Notification */
+.save-toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: var(--success-color);
+    color: white;
+    padding: var(--space-4) var(--space-6);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+    z-index: var(--z-toast);
+    transform: translateX(100%);
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.save-toast.show {
+    transform: translateX(0);
+}
+
+.toast-content {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+    font-size: 14px;
+    font-weight: 500;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    
+    .company-brand {
+        display: none;
+    }
+    
+    .widget-library {
+        width: 90vw;
+        left: -90vw;
+    }
+    
+    .welcome-content h2 {
+        font-size: 28px;
+    }
+    
+    .dashboard-grid {
+        padding: var(--space-4);
+    }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--surface-tertiary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--text-tertiary);
+    border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--text-secondary);
+}
+
+/* Focus styles for accessibility */
+button:focus-visible,
+input:focus-visible {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Animation utilities */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideIn {
+    from { transform: translateX(-100%); }
+    to { transform: translateX(0); }
+}
+
+.animate-in {
+    animation: fadeIn 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
