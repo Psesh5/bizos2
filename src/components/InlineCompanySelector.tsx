@@ -68,10 +68,19 @@ export function InlineCompanySelector({
 
     setLoading(true);
     try {
+      console.log('🔍 SEARCHING FOR:', query);
       const results = await fmpApi.searchCompanies(query);
-      setCompanies(results.slice(0, 10)); // Limit to top 10 results
+      console.log('📊 FMP SEARCH RESULTS:', results);
+      console.log('📊 RESULTS LENGTH:', results?.length);
+      
+      if (results && Array.isArray(results) && results.length > 0) {
+        setCompanies(results.slice(0, 10)); // Limit to top 10 results
+      } else {
+        console.log('⚠️ No results found, using popular companies');
+        setCompanies(popularCompanies);
+      }
     } catch (error) {
-      console.error('Error searching companies:', error);
+      console.error('💥 Error searching companies:', error);
       setCompanies(popularCompanies);
     } finally {
       setLoading(false);
@@ -124,19 +133,29 @@ export function InlineCompanySelector({
         variant="outline"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          "flex items-center justify-between w-full bg-white/80 border border-primary/20 hover:border-primary/40 transition-colors",
-          className?.includes('h-6') ? "px-2 py-1 h-6 text-xs" : "px-4 py-2 h-auto space-x-3"
+          "flex items-center justify-between w-full transition-colors",
+          className?.includes('bg-gray-800') 
+            ? "bg-gray-800 border-gray-600 text-white hover:bg-gray-700 hover:border-gray-500"
+            : "bg-white/80 border border-primary/20 hover:border-primary/40",
+          className?.includes('h-6') ? "px-2 py-1 h-6 text-xs" : "px-4 py-2 h-auto space-x-3",
+          className?.includes('h-5') ? "px-2 py-1 h-5 text-xs" : ""
         )}
       >
-        <div className={cn("flex items-center", className?.includes('h-6') ? "space-x-1" : "space-x-3")}>
+        <div className={cn("flex items-center", 
+          className?.includes('h-6') ? "space-x-1" : 
+          className?.includes('h-5') ? "space-x-1" : "space-x-3"
+        )}>
           <div className="relative">
             <img 
               src={getCompanyLogo(currentSymbol)} 
               alt={currentCompanyName}
-              className={cn("rounded-lg", className?.includes('h-6') ? "h-4 w-4" : "h-8 w-8")}
+              className={cn("rounded-lg", 
+                className?.includes('h-6') ? "h-4 w-4" : 
+                className?.includes('h-5') ? "h-3 w-3" : "h-8 w-8"
+              )}
               onError={(e) => {
-                const size = className?.includes('h-6') ? '16' : '32';
-                const fontSize = className?.includes('h-6') ? '10' : '14';
+                const size = className?.includes('h-6') ? '16' : className?.includes('h-5') ? '12' : '32';
+                const fontSize = className?.includes('h-6') ? '10' : className?.includes('h-5') ? '8' : '14';
                 const fallbackSvg = `data:image/svg+xml;base64,${btoa(`
                   <svg width="${size}" height="${size}" viewBox="0 0 ${size} ${size}" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <rect width="${size}" height="${size}" rx="4" fill="#3b82f6"/>
@@ -147,8 +166,10 @@ export function InlineCompanySelector({
               }}
             />
           </div>
-          {className?.includes('h-6') ? (
-            <span className="font-medium text-xs text-foreground truncate max-w-20">
+          {(className?.includes('h-6') || className?.includes('h-5')) ? (
+            <span className={cn("font-medium text-xs font-mono truncate max-w-20",
+              className?.includes('text-white') ? "text-white" : "text-foreground"
+            )}>
               {currentSymbol}
             </span>
           ) : (
@@ -159,8 +180,10 @@ export function InlineCompanySelector({
           )}
         </div>
         <ChevronDown className={cn("transition-transform", 
-          className?.includes('h-6') ? "h-3 w-3" : "h-4 w-4",
-          isOpen && "transform rotate-180"
+          className?.includes('h-6') ? "h-3 w-3" : 
+          className?.includes('h-5') ? "h-2 w-2" : "h-4 w-4",
+          isOpen && "transform rotate-180",
+          className?.includes('text-white') ? "text-white" : ""
         )} />
       </Button>
 

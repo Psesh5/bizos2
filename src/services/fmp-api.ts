@@ -212,10 +212,28 @@ class FMPApiService {
     if (!query || query.length < 1) return [];
     
     const url = `${this.baseUrl}/search?query=${encodeURIComponent(query)}&limit=20&exchange=NASDAQ,NYSE`;
-    console.log('FMP API URL:', url);
-    const results = await this.fetchWithRetry(url);
-    console.log('FMP API raw results:', results);
-    return results;
+    console.log('🌐 FMP API URL:', url);
+    
+    try {
+      const results = await this.fetchWithRetry(url);
+      console.log('📊 FMP API raw results:', results);
+      console.log('📊 Results type:', typeof results);
+      console.log('📊 Is array:', Array.isArray(results));
+      
+      // FMP search returns an array of companies
+      if (Array.isArray(results)) {
+        return results;
+      } else if (results && typeof results === 'object') {
+        // Sometimes API might return wrapped results
+        return results.data || results.results || [results];
+      }
+      
+      console.warn('⚠️ Unexpected FMP search response format:', results);
+      return [];
+    } catch (error) {
+      console.error('💥 FMP search error:', error);
+      return [];
+    }
   }
 
   async getCompanyProfile(symbol: string): Promise<CompanyProfile> {
@@ -300,6 +318,32 @@ class FMPApiService {
     const url = symbol 
       ? `${this.baseUrl}/house-disclosure?symbol=${symbol}`
       : `${this.baseUrl}/house-disclosure`;
+    return this.fetchWithRetry(url);
+  }
+
+  // Financial Statements for AI Analysis
+  async getIncomeStatement(symbol: string, limit = 4): Promise<any[]> {
+    const url = `${this.baseUrl}/income-statement/${symbol}?limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getBalanceSheet(symbol: string, limit = 4): Promise<any[]> {
+    const url = `${this.baseUrl}/balance-sheet-statement/${symbol}?limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getCashFlowStatement(symbol: string, limit = 4): Promise<any[]> {
+    const url = `${this.baseUrl}/cash-flow-statement/${symbol}?limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getKeyMetrics(symbol: string, limit = 4): Promise<any[]> {
+    const url = `${this.baseUrl}/key-metrics/${symbol}?limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getEnterpriseValue(symbol: string, limit = 4): Promise<any[]> {
+    const url = `${this.baseUrl}/enterprise-values/${symbol}?limit=${limit}`;
     return this.fetchWithRetry(url);
   }
 }

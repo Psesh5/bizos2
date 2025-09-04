@@ -55,7 +55,7 @@ export const WidgetContainer = ({ widget, onUpdate, onRemove, isExpanded, onTogg
   return (
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-sm font-medium">{widget.title}</CardTitle>
+        <CardTitle className={`text-sm font-medium ${widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : ''}`}>{widget.title}</CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" className="h-8 w-8 p-0">

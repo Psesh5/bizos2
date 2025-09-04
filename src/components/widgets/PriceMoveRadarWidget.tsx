@@ -109,12 +109,15 @@ export const PriceMoveRadarWidget = ({ widget, isExpanded = false, onToggleExpan
 
   const symbol = widget.config?.symbol || 'AAPL';
   
+  // Determine which symbol to fetch data for - prioritize selectedTicker or use widget symbol
+  const activeSymbol = selectedTicker || symbol;
+  
   // Fetch real events from API
   const { data: apiEvents = [], isLoading, error } = useQuery({
-    queryKey: ['price-move-events', symbol, timeFilter],
+    queryKey: ['price-move-events', activeSymbol, timeFilter],
     queryFn: () => {
-      console.log('🔥 useQuery called with:', { symbol, timeFilter });
-      return priceMoveRadarAPI.getAllEvents(symbol, timeFilter);
+      console.log('🔥 useQuery called with:', { activeSymbol, timeFilter });
+      return priceMoveRadarAPI.getAllEvents(activeSymbol, timeFilter);
     },
     refetchInterval: 5 * 60 * 1000, // Refresh every 5 minutes
     staleTime: 2 * 60 * 1000, // Consider data stale after 2 minutes
@@ -123,7 +126,7 @@ export const PriceMoveRadarWidget = ({ widget, isExpanded = false, onToggleExpan
   console.log('📊 Widget state:', { apiEvents: apiEvents.length, isLoading, error, timeFilter });
   
   // Smart fallback: Use real data when available, supplement with mock when needed
-  const mockEvents = generateMockEvents(symbol);
+  const mockEvents = generateMockEvents(activeSymbol);
   
   let allEvents: PriceMoveEvent[];
   if (apiEvents.length > 0) {
@@ -138,21 +141,26 @@ export const PriceMoveRadarWidget = ({ widget, isExpanded = false, onToggleExpan
 
   const filteredEvents = useMemo(() => {
     return allEvents.filter(event => {
-      // Filter by current company symbol if not searching
-      if (!searchQuery && event.ticker !== symbol) return false;
-      
-      // Filter by ticker
+      // If a specific ticker is selected, only show events for that ticker
       if (selectedTicker && event.ticker !== selectedTicker) return false;
+      
+      // If search query is present, search in title, summary, and ticker
+      if (searchQuery) {
+        const query = searchQuery.toLowerCase();
+        const matchesSearch = event.title.toLowerCase().includes(query) ||
+                            event.summary.toLowerCase().includes(query) ||
+                            event.ticker.toLowerCase().includes(query);
+        if (!matchesSearch) return false;
+      } else {
+        // If no search query and no specific ticker selected, show events for the active symbol
+        if (!selectedTicker && event.ticker !== activeSymbol) return false;
+      }
       
       // Filter by categories
       if (selectedCategories.length > 0 && !selectedCategories.includes(event.category)) return false;
       
       // Filter by confidence
       if (confidenceFilter.length > 0 && !confidenceFilter.includes(event.confidence)) return false;
-      
-      // Filter by search query
-      if (searchQuery && !event.title.toLowerCase().includes(searchQuery.toLowerCase()) &&
-          !event.summary.toLowerCase().includes(searchQuery.toLowerCase())) return false;
       
       // Filter by minimum price impact
       if (minPriceImpact && event.priceImpact !== undefined) {
@@ -162,7 +170,7 @@ export const PriceMoveRadarWidget = ({ widget, isExpanded = false, onToggleExpan
       
       return true;
     });
-  }, [allEvents, symbol, selectedTicker, selectedCategories, confidenceFilter, searchQuery, minPriceImpact]);
+  }, [allEvents, activeSymbol, selectedTicker, selectedCategories, confidenceFilter, searchQuery, minPriceImpact]);
 
   const getImpactIcon = (impact: PriceMoveEvent['impact']) => {
     switch (impact) {
@@ -257,7 +265,7 @@ export const PriceMoveRadarWidget = ({ widget, isExpanded = false, onToggleExpan
         {/* Stock Ticker Input */}
         <div>
           <Input
-            placeholder="Enter Stock Ticker"
+            placeholder={`Search ticker (current: ${activeSymbol})`}
             value={selectedTicker}
             onChange={(e) => setSelectedTicker(e.target.value.toUpperCase())}
             className="h-8 text-xs font-mono text-center"

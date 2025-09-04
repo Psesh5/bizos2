@@ -103,7 +103,7 @@ export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryPro
                             <div className="p-2 bg-blue-100 rounded-lg">
                               <Icon className="h-5 w-5 text-blue-600" />
                             </div>
-                            <CardTitle className="text-sm">{widget.title}</CardTitle>
+                            <CardTitle className={`text-sm ${widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : ''}`}>{widget.title}</CardTitle>
                           </div>
                           <CardDescription className="text-xs">
                             {widget.description}
