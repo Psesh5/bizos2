@@ -12,6 +12,7 @@ import { StockPriceWidget } from './widgets/StockPriceWidget';
 import { PriceChartWidget } from './widgets/PriceChartWidget';
 import { FinancialMetricsWidget } from './widgets/FinancialMetricsWidget';
 import { PriceMoveRadarWidget } from './widgets/PriceMoveRadarWidget';
+import { CompanyIntelBriefWidget } from './widgets/CompanyIntelBriefWidget';
 
 interface WidgetContainerProps {
   widget: BaseWidget;
@@ -44,6 +45,8 @@ export const WidgetContainer = ({ widget, onUpdate, onRemove, isExpanded, onTogg
         return <div className="p-4 text-center text-gray-500">Earnings Transcripts - Coming Soon</div>;
       case 'price-move-radar':
         return <PriceMoveRadarWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
+      case 'company-intel-brief':
+        return <CompanyIntelBriefWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       default:
         return <div className="p-4 text-center text-gray-500">Unknown widget type</div>;
     }

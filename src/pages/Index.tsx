@@ -1,7 +1,7 @@
-import { PriceMoverRadar } from '../components/PriceMoverRadar';
+import { Dashboard } from '../components/Dashboard';
 
 const Index = () => {
-  return <PriceMoverRadar />;
+  return <Dashboard />;
 };
 
 export default Index;

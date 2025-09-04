@@ -128,19 +128,60 @@ export interface FinancialRatios {
   priceFairValue: number;
 }
 
+export interface InsiderTrading {
+  symbol: string;
+  transactionDate: string;
+  reportingDate: string;
+  transactionType: string;
+  securitiesOwned: number;
+  companyCik: string;
+  reportingCik: string;
+  securityName: string;
+  ownerName: string;
+  ownerTitle: string;
+  acquisitionOrDisposition: string;
+  formType: string;
+  securitiesTransacted: number;
+  price: number;
+  securityName: string;
+  link: string;
+}
+
+export interface CompanyNews {
+  symbol: string;
+  publishedDate: string;
+  title: string;
+  image: string;
+  site: string;
+  text: string;
+  url: string;
+}
+
+export interface InstitutionalHolder {
+  symbol: string;
+  cik: string;
+  date: string;
+  investorName: string;
+  portfolioPercent: number;
+  shares: number;
+  marketValue: number;
+  reportDate: string;
+}
+
 class FMPApiService {
   private baseUrl = 'https://financialmodelingprep.com/api/v3';
   private apiKey: string;
 
   constructor() {
-    // In production, this should come from environment variables
-    this.apiKey = 'QLmCqVKpw5uZHM6sFs69VSSDDlU3xiPy';
+    // Use environment variable from .env.local
+    this.apiKey = import.meta.env.VITE_FMP_API_KEY || 'QLmCqVKpw5uZHM6sFs69VSSDDlU3xiPy';
   }
 
   private async fetchWithRetry(url: string, retries = 3): Promise<any> {
     for (let i = 0; i < retries; i++) {
       try {
-        const response = await fetch(`${url}&apikey=${this.apiKey}`);
+        const separator = url.includes('?') ? '&' : '?';
+        const response = await fetch(`${url}${separator}apikey=${this.apiKey}`);
         
         if (!response.ok) {
           throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -214,6 +255,51 @@ class FMPApiService {
     const url = symbol 
       ? `${this.baseUrl}/earning_calendar?symbol=${symbol}`
       : `${this.baseUrl}/earning_calendar`;
+    return this.fetchWithRetry(url);
+  }
+
+  // Market Intelligence Station API Methods
+  async getInsiderTrading(symbol: string, limit = 100): Promise<InsiderTrading[]> {
+    const url = `${this.baseUrl}/insider-trading?symbol=${symbol}&limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getInsiderTradingRSSFeed(limit = 100): Promise<InsiderTrading[]> {
+    const url = `${this.baseUrl}/insider-trading-rss-feed?limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getCompanyNews(symbol: string, limit = 50): Promise<CompanyNews[]> {
+    const url = `${this.baseUrl}/stock_news?tickers=${symbol}&limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getGeneralNews(limit = 100): Promise<CompanyNews[]> {
+    const url = `${this.baseUrl}/general_news?limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getInstitutionalHolders(symbol: string): Promise<InstitutionalHolder[]> {
+    const url = `${this.baseUrl}/institutional-holder/${symbol}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getInsiderTradingByDate(date: string, limit = 100): Promise<InsiderTrading[]> {
+    const url = `${this.baseUrl}/insider-trading?date=${date}&limit=${limit}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getSenateTrading(symbol?: string): Promise<any[]> {
+    const url = symbol 
+      ? `${this.baseUrl}/senate-trading?symbol=${symbol}`
+      : `${this.baseUrl}/senate-trading`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getHouseTrading(symbol?: string): Promise<any[]> {
+    const url = symbol 
+      ? `${this.baseUrl}/house-disclosure?symbol=${symbol}`
+      : `${this.baseUrl}/house-disclosure`;
     return this.fetchWithRetry(url);
   }
 }

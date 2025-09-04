@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar } from 'lucide-react';
+import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText } from 'lucide-react';
 
 interface WidgetLibraryProps {
   isOpen: boolean;
@@ -63,6 +63,13 @@ const WIDGET_TEMPLATES = [
     title: 'Price-Move Radar',
     description: 'Track events that move stock prices',
     icon: Radar,
+    category: 'Intelligence',
+  },
+  {
+    type: 'company-intel-brief',
+    title: 'Company Intel Brief',
+    description: 'Comprehensive company analysis with financial metrics and insights',
+    icon: FileText,
     category: 'Intelligence',
   },
 ];
