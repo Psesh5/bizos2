@@ -924,22 +924,31 @@ export function CompanyIntelBriefWidget({
 
         {/* Top Row - Most Important Metrics */}
         <div className="grid grid-cols-4 gap-2">
-          <div 
-            className={`rounded-lg p-2 border text-center cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 ${priceData.changePercent >= 0 ? 'bg-green-50 border-green-200 hover:bg-green-100' : 'bg-red-50 border-red-200 hover:bg-red-100'}`}
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              console.log('Price clicked!'); // Debug log
-              alert('Price clicked! Modal should show now');
-              setShowPriceNavigation(true);
-            }}
-            title="Click to view stock details"
-          >
-            <p className={`text-xs font-medium font-mono ${priceData.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>PRICE 🔗</p>
-            <p className="text-sm font-bold font-mono">${priceData.price.toFixed(2)}</p>
-            <p className={`text-xs font-mono ${priceData.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
-              {priceData.changePercent > 0 ? '+' : ''}{priceData.changePercent.toFixed(2)}%
-            </p>
+          <div className="relative">
+            <button 
+              className={`w-full rounded-lg p-2 border text-center cursor-pointer hover:shadow-lg hover:scale-105 transition-all duration-200 relative z-10 ${priceData.changePercent >= 0 ? 'bg-green-50 border-green-200 hover:bg-green-100' : 'bg-red-50 border-red-200 hover:bg-red-100'}`}
+              onClick={() => {
+                console.log('Price button clicked!'); // Debug log
+                alert('Price button clicked! Modal should show now');
+                setShowPriceNavigation(true);
+              }}
+              onMouseOver={() => console.log('Price button hovered!')}
+              title="Click to view stock details"
+              style={{ pointerEvents: 'auto', zIndex: 10 }}
+            >
+              <p className={`text-xs font-medium font-mono ${priceData.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>PRICE 🔗</p>
+              <p className="text-sm font-bold font-mono">${priceData.price.toFixed(2)}</p>
+              <p className={`text-xs font-mono ${priceData.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                {priceData.changePercent > 0 ? '+' : ''}{priceData.changePercent.toFixed(2)}%
+              </p>
+            </button>
+            {/* Test button to verify clicking works at all */}
+            <button 
+              className="absolute top-0 right-0 bg-red-500 text-white text-xs px-1 py-0.5 z-20"
+              onClick={() => alert('Test button works!')}
+            >
+              TEST
+            </button>
           </div>
           <div className={`rounded-lg p-2 border text-center ${priceData.changePercent >= 0 ? 'bg-green-50 border-green-200' : 'bg-red-50 border-red-200'}`}>
             <p className={`text-xs font-medium font-mono ${priceData.changePercent >= 0 ? 'text-green-600' : 'text-red-600'}`}>MARKET CAP</p>
@@ -1083,8 +1092,9 @@ export function CompanyIntelBriefWidget({
       </div>
       
       {/* Stock Price Navigation Modal */}
+      {console.log('showPriceNavigation state:', showPriceNavigation)}
       {showPriceNavigation && (
-        <div className="fixed inset-0 z-50 bg-background/80 backdrop-blur-sm flex items-center justify-center">
+        <div className="fixed inset-0 z-50 bg-red-500/50 backdrop-blur-sm flex items-center justify-center">
           <div className="bg-card border border-border rounded-lg shadow-lg p-6 max-w-sm w-full mx-4">
             <div className="flex items-center space-x-3 mb-4">
               <div className="p-2 rounded bg-blue-600">
