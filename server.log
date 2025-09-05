@@ -1,0 +1,104 @@
+
+> vite_react_shadcn_ts@0.0.0 dev
+> vite
+
+
+  VITE v5.4.19  ready in 151 ms
+
+  ➜  Local:   http://localhost:5173/
+  ➜  Network: http://192.168.86.23:5173/
+12:54:34 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+Error processing file src/components/widgets/CompanyIntelBriefWidget.tsx: SyntaxError: Unexpected token, expected "}" (808:27)
+    at constructor (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:367:19)
+    at TypeScriptParserMixin.raise (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:6630:19)
+    at TypeScriptParserMixin.unexpected (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:6650:16)
+    at TypeScriptParserMixin.expect (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:6930:12)
+    at TypeScriptParserMixin.jsxParseExpressionContainer (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4670:10)
+    at TypeScriptParserMixin.jsxParseAttributeValue (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4637:21)
+    at TypeScriptParserMixin.jsxParseAttribute (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4686:38)
+    at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4700:28)
+    at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:10067:18)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4695:17) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 808, column: 27, index: 41151 },
+  pos: 41151,
+  syntaxPlugin: undefined
+}
+12:54:34 PM [vite] Internal server error:   x Expected '</', got ';'
+     ,-[/Users/ps/bizos3/src/components/widgets/CompanyIntelBriefWidget.tsx:808:1]
+ 805 |                           <rect width="20" height="20" rx="4" fill="white"/>
+ 806 |                           <text x="10" y="13" font-family="Arial" font-size="10" font-weight="bold" fill="#2563eb" text-anchor="middle">${symbol.charAt(0)}</text>
+ 807 |                         </svg>
+ 808 |                       `)}`};
+     :                            ^
+ 809 |                       e.currentTarget.src = fallbackSvg;
+ 810 |                     }}
+ 811 |                   />
+     `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /Users/ps/bizos3/src/components/widgets/CompanyIntelBriefWidget.tsx
+  
+12:55:40 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+Error processing file src/components/widgets/CompanyIntelBriefWidget.tsx: SyntaxError: Unexpected token, expected "}" (1111:25)
+    at constructor (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:367:19)
+    at TypeScriptParserMixin.raise (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:6630:19)
+    at TypeScriptParserMixin.unexpected (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:6650:16)
+    at TypeScriptParserMixin.expect (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:6930:12)
+    at TypeScriptParserMixin.jsxParseExpressionContainer (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4670:10)
+    at TypeScriptParserMixin.jsxParseAttributeValue (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4637:21)
+    at TypeScriptParserMixin.jsxParseAttribute (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4686:38)
+    at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4700:28)
+    at TypeScriptParserMixin.jsxParseOpeningElementAfterName (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:10067:18)
+    at TypeScriptParserMixin.jsxParseOpeningElementAt (/Users/ps/bizos3/node_modules/@babel/parser/lib/index.js:4695:17) {
+  code: 'BABEL_PARSER_SYNTAX_ERROR',
+  reasonCode: 'UnexpectedToken',
+  loc: Position { line: 1111, column: 25, index: 57027 },
+  pos: 57027,
+  syntaxPlugin: undefined
+}
+12:55:40 PM [vite] Internal server error:   x Expected '</', got ';'
+      ,-[/Users/ps/bizos3/src/components/widgets/CompanyIntelBriefWidget.tsx:1111:1]
+ 1108 |                         <rect width="20" height="20" rx="4" fill="white"/>
+ 1109 |                         <text x="10" y="13" font-family="Arial" font-size="10" font-weight="bold" fill="#2563eb" text-anchor="middle">${symbol.charAt(0)}</text>
+ 1110 |                       </svg>
+ 1111 |                     `)}`};
+      :                          ^
+ 1112 |                     e.currentTarget.src = fallbackSvg;
+ 1113 |                   }}
+ 1114 |                 />
+      `----
+
+
+Caused by:
+    Syntax Error
+  Plugin: vite:react-swc
+  File: /Users/ps/bizos3/src/components/widgets/CompanyIntelBriefWidget.tsx
+  
+12:55:48 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+12:56:34 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+12:58:21 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+12:58:35 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:00:56 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:01:03 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:01:34 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:01:58 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:02:22 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+1:02:31 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+1:06:28 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:08:12 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:08:28 PM [vite] hmr update /src/index.css, /src/components/widgets/CompanyIntelBriefWidget.tsx
+1:09:10 PM [vite] hmr update /src/components/widgets/CompanyIntelBriefWidget.tsx, /src/index.css
+1:17:48 PM [vite] hmr update /src/components/WidgetLibrary.tsx, /src/index.css
+1:18:01 PM [vite] hmr update /src/components/WidgetLibrary.tsx, /src/index.css
+1:18:25 PM [vite] hmr update /src/components/WidgetContainer.tsx, /src/index.css
+1:18:36 PM [vite] hmr update /src/components/WidgetContainer.tsx, /src/index.css
+1:18:55 PM [vite] hmr update /src/components/WidgetLibrary.tsx, /src/index.css
+1:20:15 PM [vite] hmr update /src/components/widgets/NewsBriefingWidget.tsx, /src/index.css
+1:45:30 PM [vite] hmr update /src/components/widgets/NewsBriefingWidget.tsx, /src/index.css
+1:46:09 PM [vite] hmr update /src/components/widgets/NewsBriefingWidget.tsx, /src/index.css
+1:46:20 PM [vite] hmr update /src/components/WidgetContainer.tsx, /src/index.css

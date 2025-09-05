@@ -50,18 +50,46 @@ class AIAnalysisService {
     realtimeData: any
   ): Promise<CompanyAnalysis> {
     try {
+      // First fetch earnings calendar to know when they last reported
+      const earningsCalendar = await fmpApi.getEarningsCalendar(symbol);
+      
+      // Get the most recent reported earnings date
+      const today = new Date();
+      const recentEarnings = earningsCalendar?.filter((earning: any) => 
+        new Date(earning.date) < today && earning.eps !== null
+      ).sort((a: any, b: any) => 
+        new Date(b.date).getTime() - new Date(a.date).getTime()
+      )[0];
+      
+      console.log('📅 Most recent earnings date for', symbol, ':', recentEarnings?.date);
+      
       // Fetch comprehensive financial data from FMP
-      const [incomeStatements, balanceSheets, cashFlows, keyMetrics] = await Promise.all([
-        fmpApi.getIncomeStatement(symbol, 8), // 8 quarters for YoY comparison
+      const [incomeStatements, balanceSheets, cashFlows, keyMetrics, companyNews] = await Promise.all([
+        fmpApi.getIncomeStatement(symbol, 12), // Get more quarters to ensure we have the latest
         fmpApi.getBalanceSheet(symbol, 4),
         fmpApi.getCashFlowStatement(symbol, 4),
-        fmpApi.getKeyMetrics(symbol, 8)
+        fmpApi.getKeyMetrics(symbol, 12),
+        fmpApi.getCompanyNews(symbol, 50) // Get recent news
       ]);
 
-      console.log('📊 FMP FINANCIAL DATA:', { incomeStatements: incomeStatements?.length, balanceSheets: balanceSheets?.length });
+      console.log('📊 FMP FINANCIAL DATA:', { incomeStatements: incomeStatements?.length, balanceSheets: balanceSheets?.length, news: companyNews?.length });
+
+      // Filter news for business wire sources only
+      const businessWireNews = companyNews?.filter(news => 
+        news.site?.toLowerCase().includes('businesswire') ||
+        news.site?.toLowerCase().includes('prnewswire') ||
+        news.site?.toLowerCase().includes('globenewswire') ||
+        news.site?.toLowerCase().includes('pr newswire') ||
+        news.site?.toLowerCase().includes('globe newswire')
+      ).slice(0, 5); // Get top 5 most recent
 
       // Generate comprehensive analysis with real data
-      const analysisData = await this.processFinancialData(symbol, companyProfile, incomeStatements, keyMetrics, realtimeData);
+      const analysisData = await this.processFinancialData(symbol, companyProfile, incomeStatements, keyMetrics, realtimeData, businessWireNews);
+
+      // Add earnings date info to analysis data
+      if (recentEarnings) {
+        analysisData.lastEarningsDate = recentEarnings.date;
+      }
 
       if (!this.openaiApiKey) {
         return this.getEnhancedFallbackAnalysis(symbol, companyProfile, analysisData);
@@ -78,9 +106,30 @@ class AIAnalysisService {
     }
   }
 
-  private async processFinancialData(symbol: string, profile: any, incomeStatements: any[], keyMetrics: any[], realtimeData: any) {
-    const currentQuarter = incomeStatements?.[0];
-    const priorYearQuarter = incomeStatements?.[4]; // Same quarter last year
+  private async processFinancialData(symbol: string, profile: any, incomeStatements: any[], keyMetrics: any[], realtimeData: any, businessWireNews: any[]) {
+    // Find the most recent quarter that has actual data (not estimates)
+    const sortedStatements = incomeStatements?.sort((a, b) => 
+      new Date(b.date).getTime() - new Date(a.date).getTime()
+    ) || [];
+    
+    // The most recent statement with actual revenue data
+    const currentQuarter = sortedStatements.find(stmt => 
+      stmt.revenue > 0 && stmt.reportedDate
+    ) || sortedStatements[0];
+    
+    // Find the same quarter from previous year for YoY comparison
+    const currentQuarterDate = new Date(currentQuarter?.date);
+    const priorYearDate = new Date(currentQuarterDate);
+    priorYearDate.setFullYear(priorYearDate.getFullYear() - 1);
+    
+    const priorYearQuarter = sortedStatements.find(stmt => {
+      const stmtDate = new Date(stmt.date);
+      return Math.abs(stmtDate.getTime() - priorYearDate.getTime()) < 45 * 24 * 60 * 60 * 1000; // Within 45 days
+    });
+    
+    console.log('📊 Current Quarter:', currentQuarter?.date, 'Revenue:', currentQuarter?.revenue);
+    console.log('📊 Prior Year Quarter:', priorYearQuarter?.date, 'Revenue:', priorYearQuarter?.revenue);
+    
     const currentMetrics = keyMetrics?.[0];
     const priorYearMetrics = keyMetrics?.[4];
 
@@ -104,6 +153,14 @@ class AIAnalysisService {
     // Generate segment data using AI and real financial statements
     const segmentData = await this.generateRealSegmentData(symbol, profile, incomeStatements, ttmRevenue);
 
+    // Format the most recent quarter info
+    const mostRecentQuarter = currentQuarter ? this.formatQuarter(currentQuarter.date) : 'Q2 2025';
+    const recentNewsHeadlines = businessWireNews?.map(news => ({
+      title: news.title,
+      date: news.publishedDate,
+      site: news.site
+    })) || [];
+
     return {
       revenueGrowth: `${revenueGrowthYoY > 0 ? '+' : ''}${revenueGrowthYoY.toFixed(1)}%`,
       profitabilityTrend: ttmNetIncome > 0 ? 'Profitable' : 'Loss-making',
@@ -115,7 +172,9 @@ class AIAnalysisService {
         marginTrend: this.calculateMarginTrend(incomeStatements)
       },
       revenueData,
-      segmentData
+      segmentData,
+      mostRecentQuarter,
+      recentNews: recentNewsHeadlines
     };
   }
 
@@ -430,7 +489,7 @@ Current Stock Metrics:
 
 Generate intelligence brief analysis as JSON:
 {
-  "executiveSummary": "Target reported [specific performance] with [actual growth rate] revenue growth driven by [specific business drivers]. Revenue reached [actual revenue figure], [beating/missing] expectations by [amount]. [Specific risks or opportunities based on actual data].",
+  "executiveSummary": "${symbol} reported [specific performance] with [actual growth rate] revenue growth driven by [specific business drivers]. Revenue reached [actual revenue figure], [beating/missing] expectations by [amount]. [Specific risks or opportunities based on actual data].",
   "keyInsights": [
     {"type": "strength", "title": "Specific strength based on real data", "description": "1 sentence with actual metrics"},
     {"type": "risk", "title": "Specific risk from financial data", "description": "1 sentence about actual concern"}
@@ -449,9 +508,33 @@ Use REAL numbers and specific business context. If it's aerospace like Rocket La
     const revenueGrowth = analysisData.revenueGrowth || '+0.0%';
     const ttmRevenue = analysisData.quarterlyComparison?.ttmData?.revenue || 0;
     const isProf = analysisData.profitabilityTrend === 'Profitable';
+    const currentQuarterRevenue = analysisData.quarterlyComparison?.currentQuarter?.revenue || 0;
+    const mostRecentQuarter = analysisData.mostRecentQuarter || 'Q2 2025';
+
+    // Create news summary if available
+    let newsSummary = '';
+    if (analysisData.recentNews && analysisData.recentNews.length > 0) {
+      const topNews = analysisData.recentNews[0];
+      newsSummary = ` Recent developments include ${topNews.title.substring(0, 100)}...`;
+    }
+
+    // Build executive summary with Q2 focus
+    let executiveSummary = `${profile?.companyName || symbol} reported ${mostRecentQuarter} results with ${revenueGrowth} YoY revenue growth`;
+    
+    if (currentQuarterRevenue > 0) {
+      executiveSummary += `, reaching $${(currentQuarterRevenue / 1e6).toFixed(0)}M in quarterly revenue`;
+    }
+    
+    executiveSummary += `. ${isProf ? 'The company maintained profitability' : 'The company continued investing in growth'} with ${analysisData.quarterlyComparison?.marginTrend?.toLowerCase() || 'stable'} margin trends.`;
+    
+    if (newsSummary) {
+      executiveSummary += newsSummary;
+    } else {
+      executiveSummary += ` ${profile?.companyName || symbol} demonstrates ${isGrowthCompany ? 'strong growth momentum' : 'operational discipline'} in the ${industry} sector.`;
+    }
 
     return {
-      executiveSummary: `Target reported ${revenueGrowth} YoY revenue growth, ${isProf ? 'maintaining profitability' : 'focusing on growth over profitability'}. TTM revenue reached $${(ttmRevenue / 1e9).toFixed(1)}B with ${analysisData.quarterlyComparison?.marginTrend?.toLowerCase() || 'stable'} margin trends. Company demonstrates ${isGrowthCompany ? 'strong growth momentum' : 'operational discipline'} in the ${industry} sector.`,
+      executiveSummary,
       keyInsights: [
         {
           type: 'strength',

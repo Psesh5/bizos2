@@ -374,7 +374,7 @@ export function CompanyIntelBriefWidget({
               <div className="flex items-center justify-between">
                 <div>
                   <h1 className="text-2xl font-bold mb-2 font-mono tracking-wider text-foreground">{companyName.toUpperCase()} [{symbol}]</h1>
-                  <p className="text-muted-foreground font-mono text-sm">TARGET: Q4-2024 FINANCIAL ASSESSMENT</p>
+                  <p className="text-muted-foreground font-mono text-sm">{symbol}: {analysisData?.mostRecentQuarter || 'LATEST'} FINANCIAL ASSESSMENT</p>
                   {/* Company Selector */}
                   <div className="mt-2 inline-block">
                     <InlineCompanySelector
@@ -431,7 +431,7 @@ export function CompanyIntelBriefWidget({
                       </div>
                       <div>
                         <h2 className="text-xl font-bold font-mono tracking-wider">{companyName.toUpperCase()}. [{symbol}]</h2>
-                        <p className="text-sm text-muted-foreground font-mono">TARGET: NASDAQ:{symbol}</p>
+                        <p className="text-sm text-muted-foreground font-mono">{symbol}: NASDAQ:{symbol}</p>
                       </div>
                       <div className="ml-auto">
                         <Badge className="bg-yellow-500 text-yellow-900 font-mono text-xs">MEGA CAP</Badge>
@@ -440,7 +440,7 @@ export function CompanyIntelBriefWidget({
                     
                     <div className="target-profile p-4 rounded-lg mb-6">
                       <div className="flex items-center mb-2">
-                        <span className="classification-header">TARGET PROFILE</span>
+                        <span className="classification-header">{symbol} PROFILE</span>
                       </div>
                       <div className="grid grid-cols-3 gap-4 text-sm">
                         <div>
@@ -478,11 +478,7 @@ export function CompanyIntelBriefWidget({
                         {analysisLoading && <div className="ml-2 animate-spin h-3 w-3 border border-primary border-t-transparent rounded-full"></div>}
                       </div>
                       <p className="text-sm text-foreground leading-relaxed mb-4">
-                        {analysisData?.executiveSummary || `${companyName} reported ${analysisData?.revenueGrowth || '+15%'} YoY revenue growth, 
-                        driven by robust ${symbol === 'AAPL' ? 'iPhone' : 'core product'} sales and continued services expansion. Revenue reached 
-                        $${analysisData?.quarterlyComparison?.ttmData?.revenue ? (analysisData.quarterlyComparison.ttmData.revenue / 1e9).toFixed(1) + 'B' : '89.5B'}, 
-                        ${analysisData?.profitabilityTrend === 'Profitable' ? 'maintaining profitability' : 'focusing on growth investments'}. 
-                        Company demonstrates strong operational discipline and sustained market penetration across primary product vectors.`}
+                        {analysisData?.executiveSummary || 'Loading financial analysis...'}
                       </p>
                       
                       <div className="grid grid-cols-2 gap-4">
@@ -805,7 +801,7 @@ export function CompanyIntelBriefWidget({
                           <rect width="20" height="20" rx="4" fill="white"/>
                           <text x="10" y="13" font-family="Arial" font-size="10" font-weight="bold" fill="#2563eb" text-anchor="middle">${symbol.charAt(0)}</text>
                         </svg>
-                      `)}`};
+                      `)}`;
                       e.currentTarget.src = fallbackSvg;
                     }}
                   />
@@ -895,7 +891,7 @@ export function CompanyIntelBriefWidget({
             </div>
             <div className="flex-1 min-w-0">
               <h3 className="font-bold font-mono tracking-wider text-lg">{companyName.toUpperCase()}. [{symbol}]</h3>
-              <p className="text-xs text-muted-foreground font-mono">TARGET: NASDAQ:{symbol}</p>
+              <p className="text-xs text-muted-foreground font-mono">{symbol}: NASDAQ:{symbol}</p>
               <div className="mt-1 w-32">
                 <InlineCompanySelector
                   currentSymbol={symbol}
@@ -1077,11 +1073,7 @@ export function CompanyIntelBriefWidget({
             <span className="classification-header">EXECUTIVE SUMMARY</span>
           </div>
           <p className="text-xs text-foreground leading-relaxed line-clamp-3">
-            {analysisData?.executiveSummary || `${companyName} reported ${analysisData?.revenueGrowth || '+15%'} YoY revenue growth, 
-            driven by robust ${symbol === 'AAPL' ? 'iPhone' : 'core product'} sales and continued services expansion. Revenue reached 
-            $${analysisData?.quarterlyComparison?.ttmData?.revenue ? (analysisData.quarterlyComparison.ttmData.revenue / 1e9).toFixed(1) + 'B' : '89.5B'}, 
-            ${analysisData?.profitabilityTrend === 'Profitable' ? 'maintaining profitability' : 'focusing on growth investments'}. 
-            Company demonstrates strong operational discipline and sustained market penetration across primary product vectors.`}
+            {analysisData?.executiveSummary || 'Loading financial analysis...'}
           </p>
         </div>
         
@@ -1108,7 +1100,7 @@ export function CompanyIntelBriefWidget({
                         <rect width="20" height="20" rx="4" fill="white"/>
                         <text x="10" y="13" font-family="Arial" font-size="10" font-weight="bold" fill="#2563eb" text-anchor="middle">${symbol.charAt(0)}</text>
                       </svg>
-                    `)}`};
+                    `)}`;
                     e.currentTarget.src = fallbackSvg;
                   }}
                 />

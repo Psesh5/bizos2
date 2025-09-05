@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText } from 'lucide-react';
+import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText, AlertTriangle } from 'lucide-react';
 
 interface WidgetLibraryProps {
   isOpen: boolean;
@@ -72,6 +72,13 @@ const WIDGET_TEMPLATES = [
     icon: FileText,
     category: 'Intelligence',
   },
+  {
+    type: 'news-briefing',
+    title: 'News Briefing',
+    description: 'Military-style intelligence briefing of company news',
+    icon: AlertTriangle,
+    category: 'Intelligence',
+  },
 ];
 
 export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryProps) => {
@@ -103,7 +110,11 @@ export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryPro
                             <div className="p-2 bg-blue-100 rounded-lg">
                               <Icon className="h-5 w-5 text-blue-600" />
                             </div>
-                            <CardTitle className={`text-sm ${widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : ''}`}>{widget.title}</CardTitle>
+                            <CardTitle className={`text-sm ${
+                              widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : 
+                              widget.type === 'news-briefing' ? 'font-mono tracking-wider text-yellow-600 font-bold' : 
+                              ''
+                            }`}>{widget.title}</CardTitle>
                           </div>
                           <CardDescription className="text-xs">
                             {widget.description}
