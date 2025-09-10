@@ -56,7 +56,9 @@ export type WidgetType =
   | 'financial-metrics'
   | 'news-feed'
   | 'earnings-transcripts'
-  | 'price-move-radar';
+  | 'price-move-radar'
+  | 'intelligence-hub'
+  | 'ai-agent-builder';
 
 export interface WidgetConfig {
   symbol?: string;

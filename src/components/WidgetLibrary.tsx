@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText, AlertTriangle } from 'lucide-react';
+import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText, AlertTriangle, Shield, Bot } from 'lucide-react';
 
 interface WidgetLibraryProps {
   isOpen: boolean;
@@ -79,6 +79,20 @@ const WIDGET_TEMPLATES = [
     icon: AlertTriangle,
     category: 'Intelligence',
   },
+  {
+    type: 'intelligence-hub',
+    title: 'Intelligence Hub',
+    description: 'Complete financial intelligence operations dashboard with real-time alerts',
+    icon: Shield,
+    category: 'Intelligence',
+  },
+  {
+    type: 'ai-agent-builder',
+    title: 'AI Agent Builder',
+    description: 'Ask AI to build custom widgets and functionality for you',
+    icon: Bot,
+    category: 'AI Tools',
+  },
 ];
 
 export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryProps) => {
@@ -112,7 +126,9 @@ export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryPro
                             </div>
                             <CardTitle className={`text-sm ${
                               widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : 
-                              widget.type === 'news-briefing' ? 'font-mono tracking-wider text-yellow-600 font-bold' : 
+                              widget.type === 'news-briefing' ? 'font-mono tracking-wider text-yellow-600 font-bold' :
+                              widget.type === 'intelligence-hub' ? 'font-mono tracking-wider text-blue-600 font-bold' :
+                              widget.type === 'ai-agent-builder' ? 'font-mono tracking-wider text-purple-600 font-bold' :
                               ''
                             }`}>{widget.title}</CardTitle>
                           </div>

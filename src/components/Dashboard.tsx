@@ -6,6 +6,7 @@ import { WidgetLibrary } from './WidgetLibrary';
 import { WidgetContainer } from './WidgetContainer';
 import { CompanySelector } from './CompanySelector';
 import { HeaderStockPrice } from './HeaderStockPrice';
+import { ThemeToggle } from './ThemeToggle';
 
 interface DashboardProps {
   companySymbol?: string;
@@ -121,15 +122,15 @@ export const Dashboard = ({ companySymbol }: DashboardProps) => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-background transition-colors duration-200 p-6">
       {/* Header */}
       <div className="mb-6 flex items-center justify-between">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">
+          <h1 className="text-3xl font-bold text-foreground">
             Business<span className="text-blue-600">OS</span>
           </h1>
           {(companyData || currentSymbol) && (
-            <p className="text-gray-600 mt-1">
+            <p className="text-muted-foreground mt-1">
               Dashboard for {companyData ? `${companyData.name}` : `${currentSymbol} Corporation`}
             </p>
           )}
@@ -143,13 +144,16 @@ export const Dashboard = ({ companySymbol }: DashboardProps) => {
           />
         )}
         
-        <Button 
-          onClick={() => setShowLibrary(true)}
-          className="flex items-center gap-2"
-        >
-          <Plus className="h-4 w-4" />
-          Add Widget
-        </Button>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Button 
+            onClick={() => setShowLibrary(true)}
+            className="flex items-center gap-2"
+          >
+            <Plus className="h-4 w-4" />
+            Add Widget
+          </Button>
+        </div>
       </div>
 
       {/* Welcome State */}

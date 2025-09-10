@@ -14,6 +14,8 @@ import { FinancialMetricsWidget } from './widgets/FinancialMetricsWidget';
 import { PriceMoveRadarWidget } from './widgets/PriceMoveRadarWidget';
 import { CompanyIntelBriefWidget } from './widgets/CompanyIntelBriefWidget';
 import { NewsBriefingWidget } from './widgets/NewsBriefingWidget';
+import { IntelligenceHubWidget } from './widgets/IntelligenceHubWidget';
+import { AIAgentBuilderWidget } from './widgets/AIAgentBuilderWidget';
 
 interface WidgetContainerProps {
   widget: BaseWidget;
@@ -50,6 +52,10 @@ export const WidgetContainer = ({ widget, onUpdate, onRemove, isExpanded, onTogg
         return <CompanyIntelBriefWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       case 'news-briefing':
         return <NewsBriefingWidget symbol={widget.config?.symbol} companyName={widget.config?.companyName} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
+      case 'intelligence-hub':
+        return <IntelligenceHubWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
+      case 'ai-agent-builder':
+        return <AIAgentBuilderWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       default:
         return <div className="p-4 text-center text-gray-500">Unknown widget type</div>;
     }
