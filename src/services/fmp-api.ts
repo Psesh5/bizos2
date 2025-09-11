@@ -287,8 +287,13 @@ class FMPApiService {
     return this.fetchWithRetry(url);
   }
 
-  async getCompanyNews(symbol: string, limit = 50): Promise<CompanyNews[]> {
-    const url = `${this.baseUrl}/stock_news?tickers=${symbol}&limit=${limit}`;
+  async getCompanyNews(symbol: string, limit = 50, from?: string, to?: string): Promise<CompanyNews[]> {
+    // Default to last 6 months if no date range specified
+    const fromDate = from || new Date(Date.now() - 180 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    const toDate = to || new Date().toISOString().split('T')[0];
+    
+    const url = `${this.baseUrl}/stock_news?tickers=${symbol}&limit=${limit}&from=${fromDate}&to=${toDate}`;
+    console.log(`📅 [FMP-API] Fetching news for ${symbol} from ${fromDate} to ${toDate}, limit: ${limit}`);
     return this.fetchWithRetry(url);
   }
 

@@ -51,7 +51,7 @@ export const WidgetContainer = ({ widget, onUpdate, onRemove, isExpanded, onTogg
       case 'company-intel-brief':
         return <CompanyIntelBriefWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       case 'news-briefing':
-        return <NewsBriefingWidget symbol={widget.config?.symbol} companyName={widget.config?.companyName} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
+        return <NewsBriefingWidget widget={widget} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       case 'intelligence-hub':
         return <IntelligenceHubWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       case 'ai-agent-builder':
