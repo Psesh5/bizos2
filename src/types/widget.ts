@@ -62,7 +62,7 @@ export type WidgetType =
   | 'intelligence-hub'
   | 'ai-agent-builder'
   | 'abnormal-event-sequencer'
-  | 'document-intelligence-station';
+;
 
 export interface WidgetConfig {
   symbol?: string;

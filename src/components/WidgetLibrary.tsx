@@ -100,13 +100,6 @@ const WIDGET_TEMPLATES = [
     icon: Dna,
     category: 'Intelligence',
   },
-  {
-    type: 'document-intelligence-station',
-    title: 'Document Intelligence Station',
-    description: 'Secure document upload and analyst surveillance with threat assessment',
-    icon: Upload,
-    category: 'Intelligence',
-  },
 ];
 
 export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryProps) => {
