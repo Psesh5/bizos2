@@ -130,6 +130,18 @@
     --popover-foreground: 222 84% 12%;
     --destructive: 356 75% 53%;
     --destructive-foreground: 0 0% 98%;
+
+    /* DNA Sequencer Theme Colors - Light Mode */
+    --dna-helix: 150 80% 30%;
+    --dna-adenine: 200 80% 40%;
+    --dna-thymine: 25 80% 45%;
+    --dna-guanine: 270 80% 45%;
+    --dna-cytosine: 350 80% 50%;
+    --mutation-alert: 0 75% 55%;
+    --sequence-normal: 120 60% 35%;
+    --lab-bg: 0 0% 100%;
+    --lab-panel: 240 4.8% 95.9%;
+    --scanner-glow: 150 80% 30%;
   }
 
   .dark {
@@ -191,6 +203,18 @@
     --popover-foreground: 220 15% 95%;
     --destructive: 356 65% 55%;
     --destructive-foreground: 222 47% 8%;
+
+    /* DNA Sequencer Theme Colors - Dark Mode */
+    --dna-helix: 150 80% 45%;
+    --dna-adenine: 200 80% 60%;
+    --dna-thymine: 25 80% 60%;
+    --dna-guanine: 270 80% 60%;
+    --dna-cytosine: 350 80% 60%;
+    --mutation-alert: 0 75% 55%;
+    --sequence-normal: 120 60% 50%;
+    --lab-bg: 220 15% 8%;
+    --lab-panel: 220 15% 12%;
+    --scanner-glow: 150 80% 45%;
   }
 }
 

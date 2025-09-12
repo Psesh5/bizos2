@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Card, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText, AlertTriangle, Shield, Bot } from 'lucide-react';
+import { TrendingUp, Calendar, BarChart3, DollarSign, Newspaper, MessageSquare, Radar, FileText, AlertTriangle, Shield, Bot, Dna, Upload } from 'lucide-react';
 
 interface WidgetLibraryProps {
   isOpen: boolean;
@@ -93,6 +93,20 @@ const WIDGET_TEMPLATES = [
     icon: Bot,
     category: 'AI Tools',
   },
+  {
+    type: 'abnormal-event-sequencer',
+    title: 'Abnormal Event Sequencer',
+    description: 'DNA-style visualization for market anomaly detection and news reconciliation',
+    icon: Dna,
+    category: 'Intelligence',
+  },
+  {
+    type: 'document-intelligence-station',
+    title: 'Document Intelligence Station',
+    description: 'Secure document upload and analyst surveillance with threat assessment',
+    icon: Upload,
+    category: 'Intelligence',
+  },
 ];
 
 export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryProps) => {
@@ -129,6 +143,7 @@ export const WidgetLibrary = ({ isOpen, onClose, onAddWidget }: WidgetLibraryPro
                               widget.type === 'news-briefing' ? 'font-mono tracking-wider text-yellow-600 font-bold' :
                               widget.type === 'intelligence-hub' ? 'font-mono tracking-wider text-blue-600 font-bold' :
                               widget.type === 'ai-agent-builder' ? 'font-mono tracking-wider text-purple-600 font-bold' :
+                              widget.type === 'abnormal-event-sequencer' ? 'font-mono tracking-wider text-green-600 font-bold' :
                               ''
                             }`}>{widget.title}</CardTitle>
                           </div>

@@ -19,6 +19,8 @@ export interface WidgetProps<T = any> {
   error?: string;
   onUpdate?: (config: Record<string, any>) => void;
   onRemove?: () => void;
+  isExpanded?: boolean;
+  onToggleExpanded?: () => void;
 }
 
 export interface StockPriceData {
@@ -58,7 +60,9 @@ export type WidgetType =
   | 'earnings-transcripts'
   | 'price-move-radar'
   | 'intelligence-hub'
-  | 'ai-agent-builder';
+  | 'ai-agent-builder'
+  | 'abnormal-event-sequencer'
+  | 'document-intelligence-station';
 
 export interface WidgetConfig {
   symbol?: string;

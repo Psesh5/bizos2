@@ -184,19 +184,12 @@ export const Dashboard = ({ companySymbol }: DashboardProps) => {
           {widgets.map((widget) => {
             const isExpanded = expandedWidgets.has(widget.id);
             return (
-              <div
-                key={widget.id}
-                className={`transition-all duration-300 ${
-                  isExpanded 
-                    ? 'col-span-full row-span-2 min-h-[600px] z-10' 
-                    : 'min-h-[300px]'
-                }`}
-              >
+              <div key={widget.id} className="min-h-[300px]">
                 <WidgetContainer
                   widget={widget}
                   onUpdate={(config) => updateWidget(widget.id, config)}
                   onRemove={() => removeWidget(widget.id)}
-                  isExpanded={isExpanded}
+                  isExpanded={false}
                   onToggleExpanded={() => toggleWidgetExpanded(widget.id)}
                 />
               </div>
@@ -204,6 +197,33 @@ export const Dashboard = ({ companySymbol }: DashboardProps) => {
           })}
         </div>
       )}
+
+      {/* Expanded Widget Overlay */}
+      {Array.from(expandedWidgets).map((widgetId) => {
+        const widget = widgets.find(w => w.id === widgetId);
+        if (!widget) return null;
+        
+        return (
+          <div
+            key={`expanded-${widgetId}`}
+            className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center p-4"
+            onClick={() => toggleWidgetExpanded(widgetId)}
+          >
+            <div
+              className="bg-background rounded-lg shadow-2xl max-w-7xl max-h-[90vh] w-full overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <WidgetContainer
+                widget={widget}
+                onUpdate={(config) => updateWidget(widget.id, config)}
+                onRemove={() => removeWidget(widget.id)}
+                isExpanded={true}
+                onToggleExpanded={() => toggleWidgetExpanded(widget.id)}
+              />
+            </div>
+          </div>
+        );
+      })}
 
       {/* Widget Library Modal */}
       <WidgetLibrary

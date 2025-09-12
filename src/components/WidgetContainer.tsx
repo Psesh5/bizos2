@@ -16,6 +16,8 @@ import { CompanyIntelBriefWidget } from './widgets/CompanyIntelBriefWidget';
 import { NewsBriefingWidget } from './widgets/NewsBriefingWidget';
 import { IntelligenceHubWidget } from './widgets/IntelligenceHubWidget';
 import { AIAgentBuilderWidget } from './widgets/AIAgentBuilderWidget';
+import { AbnormalEventSequencerWidget } from './widgets/AbnormalEventSequencerWidget';
+import { DocumentIntelligenceStationWidget } from './widgets/DocumentIntelligenceStationWidget';
 
 interface WidgetContainerProps {
   widget: BaseWidget;
@@ -56,6 +58,10 @@ export const WidgetContainer = ({ widget, onUpdate, onRemove, isExpanded, onTogg
         return <IntelligenceHubWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       case 'ai-agent-builder':
         return <AIAgentBuilderWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
+      case 'abnormal-event-sequencer':
+        return <AbnormalEventSequencerWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
+      case 'document-intelligence-station':
+        return <DocumentIntelligenceStationWidget {...widgetProps} isExpanded={isExpanded} onToggleExpanded={onToggleExpanded} />;
       default:
         return <div className="p-4 text-center text-gray-500">Unknown widget type</div>;
     }
@@ -64,7 +70,11 @@ export const WidgetContainer = ({ widget, onUpdate, onRemove, isExpanded, onTogg
   return (
     <Card className="h-full">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className={`text-sm font-medium ${widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : ''}`}>{widget.title}</CardTitle>
+        <CardTitle className={`text-sm font-medium ${
+          widget.type === 'company-intel-brief' ? 'font-mono tracking-wider text-red-600 font-bold' : 
+          widget.type === 'abnormal-event-sequencer' ? 'font-mono tracking-wider text-green-600 font-bold' :
+          widget.type === 'document-intelligence-station' ? 'font-mono tracking-wider text-orange-600 font-bold' : ''
+        }`}>{widget.title}</CardTitle>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" size="sm" className="h-8 w-8 p-0">

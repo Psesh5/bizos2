@@ -351,6 +351,50 @@ class FMPApiService {
     const url = `${this.baseUrl}/enterprise-values/${symbol}?limit=${limit}`;
     return this.fetchWithRetry(url);
   }
+
+  // Analyst and Consensus Data
+  async getAnalystEstimates(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/analyst-estimates/${symbol}`;
+    console.log(`📊 [FMP-API] Fetching analyst estimates for ${symbol}`);
+    return this.fetchWithRetry(url);
+  }
+
+  async getEarningsEstimates(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/analyst-estimates/${symbol}?period=quarter&limit=8`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getRevenueEstimates(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/analyst-estimates/${symbol}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getAnalystRecommendations(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/analyst-stock-recommendations/${symbol}`;
+    console.log(`📊 [FMP-API] Fetching analyst recommendations for ${symbol}`);
+    return this.fetchWithRetry(url);
+  }
+
+  async getPriceTarget(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/price-target/${symbol}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getPriceTargetSummary(symbol: string): Promise<any> {
+    const url = `${this.baseUrl}/price-target-summary/${symbol}`;
+    const data = await this.fetchWithRetry(url);
+    return Array.isArray(data) ? data[0] : data;
+  }
+
+  async getAnalystGrades(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/grade/${symbol}`;
+    return this.fetchWithRetry(url);
+  }
+
+  async getUpgradesDowngrades(symbol: string): Promise<any[]> {
+    const url = `${this.baseUrl}/upgrades-downgrades/${symbol}`;
+    return this.fetchWithRetry(url);
+  }
 }
 
 export const fmpApi = new FMPApiService();
