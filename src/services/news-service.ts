@@ -326,7 +326,7 @@ class NewsService {
           // Then by source priority (Business Wire first)
           return a.priority - b.priority;
         })
-        .slice(0, limit)
+        // Remove limit to show all press releases found
         .map(({ priority, ...release }) => release); // Remove priority field from final result
 
       console.log(`📢 [PRESS-RELEASES] Final result: ${sortedReleases.length} press releases for ${symbol} from official sources`);

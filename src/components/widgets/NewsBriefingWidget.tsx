@@ -133,7 +133,7 @@ export function NewsBriefingWidget({
       // Fetch both news and press releases
       const [news, releases] = await Promise.all([
         newsService.getCompanyNews(symbol, 100, dateFrom, dateTo),
-        newsService.getPressReleases(symbol, 20, dateFrom, dateTo)
+        newsService.getPressReleases(symbol, 100, dateFrom, dateTo)
       ]);
       
       console.log(`📊 [NEWS-WIDGET] Got ${news.length} news items and ${releases.length} press releases for ${symbol}`);
@@ -198,13 +198,15 @@ export function NewsBriefingWidget({
     site: item.site,
   })), [newsData]);
 
-  const groupedNews = useMemo(() => transformedNews.reduce((acc, item) => {
-    if (!acc[item.category]) {
-      acc[item.category] = [];
-    }
-    acc[item.category].push(item);
-    return acc;
-  }, {} as Record<string, NewsItem[]>), [transformedNews]);
+  const groupedNews = useMemo(() => transformedNews
+    .filter(item => item.category !== "press_release") // Remove press_release items to avoid duplication
+    .reduce((acc, item) => {
+      if (!acc[item.category]) {
+        acc[item.category] = [];
+      }
+      acc[item.category].push(item);
+      return acc;
+    }, {} as Record<string, NewsItem[]>), [transformedNews]);
 
   // Count priorities - memoized
   const priorityCounts = useMemo(() => transformedNews.reduce((acc, item) => {
@@ -287,7 +289,6 @@ export function NewsBriefingWidget({
             ) : (
               transformedNews
                 .filter(item => item.priority === "high")
-                .slice(0, 2)
                 .map(item => (
                   <div key={item.id} className="flex items-start gap-2">
                     <div className="w-1.5 h-1.5 rounded-full bg-priority-high mt-1 flex-shrink-0" />
@@ -478,7 +479,7 @@ export function NewsBriefingWidget({
             </div>
             
             <div className="divide-y divide-border">
-              {pressReleases.slice(0, 5).map((release) => (
+              {pressReleases.map((release) => (
                 <div key={release.id} className="p-4 flex items-start gap-4 group">
                   <div className="w-2 h-2 rounded-full bg-blue-400 mt-2 flex-shrink-0" />
                   
